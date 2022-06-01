@@ -1,6 +1,9 @@
 package com.example.hello.controller;
 
+import com.example.hello.dto.UserRequest;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/get")
@@ -20,5 +23,50 @@ public class GetApiController {
     public String pathVariable(@PathVariable(name = "id") String pathName){
         System.out.println("PathVariable: " +pathName);
         return pathName;
+    }
+
+//search?q=intellij
+// &oq=intell
+// &aqs=chrome.1.69i57j69i59j0i512j0i433i512j
+// &sourceid=chrome
+// &ie=UTF-8
+//쿼리 파라미터 -> 검색할때 매개변수, key = value값
+
+
+    //http://localhost:9090/api/get/query-param?user=steve&email=steve@gmail.com
+    @GetMapping(path = "query-param")
+    public String queryParam(@RequestParam Map<String, String> queryParam) {
+
+        StringBuilder sb = new StringBuilder();
+
+        queryParam.entrySet().forEach(entry -> {
+            System.out.println(entry.getKey());
+            System.out.println(entry.getValue());
+            System.out.println("\n");
+
+            sb.append(entry.getKey()+" = "+entry.getValue()+"\n");
+        });
+        return sb.toString();
+    }
+    @GetMapping("query-param02")
+    public String queryparam02(
+        @RequestParam String name, //변수를 명시적으로 설정 할때는 @RequestParam 붙이면 됨 -> 계속 이러기 힘드니까 Dto만듦.
+        @RequestParam String email,
+        @RequestParam int age
+        ){
+        System.out.println(name);
+        System.out.println(email);
+        System.out.println(age);
+
+    return name+" "+email+" "+age;
+    }
+
+    @GetMapping("query-param03")
+    public String queryparam03(UserRequest userRequest){ //여기서는 스프링부트가 dto랑 매치시켜서 Request Param을 쓸 필요가 없음
+        System.out.println(userRequest.getName());
+        System.out.println(userRequest.getAge());
+        System.out.println(userRequest.getEmail());
+
+        return userRequest.toString();
     }
 }
