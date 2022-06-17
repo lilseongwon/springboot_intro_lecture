@@ -1,5 +1,6 @@
 package com.example.post.controller;
 
+import com.example.post.dto.PostRequestDto;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,11 +13,8 @@ import java.util.Map;
 public class PostApiController {
 
     @PostMapping("/post")
-    public void post(@RequestBody Map<String, Object> requestData){ //object = 모두가능
-        requestData.forEach((key, value) -> { //key, value 각각출력 
-            System.out.println("key : " + key);
-            System.out.println("value: " + value);
-        });
+    public void post(@RequestBody PostRequestDto requestDto){ //object = 모두가능
+        System.out.println(requestDto);
+        }
     }
 
-}
