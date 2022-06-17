@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class PutApiController {
 
     @PostMapping("/put")
-    public void put(@RequestBody PostRequestDto requestDto){
+    public PutRequestDto put(@RequestBody PutRequestDto requestDto){
         System.out.println(requestDto);
+        return requestDto; //리턴 타입을 dto로 바꾸고 dto그대로 반환하면 받은값 그대로 주니까 JSON값으로 리턴
     }
 }
